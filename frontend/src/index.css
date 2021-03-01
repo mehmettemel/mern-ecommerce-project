@@ -1,0 +1,16 @@
+.main {
+  min-height: 80vh;
+}
+i.fas.fa-star,
+i.fas-fa-star-half-alt,
+i.far.fa-star {
+  color: #f8e825;
+}
+
+h3 {
+  padding: 0.5rem 0;
+}
+
+.rating span {
+  margin: 0.1rem;
+}
