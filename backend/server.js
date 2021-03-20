@@ -18,17 +18,25 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.send('API IS RUNNING')
-})
-
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoute)
 app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
+
 //__dirname only works with common.js
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('API IS RUNNING')
+  })
+}
 
 app.use(notFound)
 
